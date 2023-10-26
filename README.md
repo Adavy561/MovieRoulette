@@ -1,0 +1,3 @@
+# MovieRoulette
+
+I successfully bridged the gap between a React front-end and a Flask back-end, creating a seamless and fully functional REST-based full-stack application. This integration allowed for the efficient exchange of data and functionality between the front-end and back-end components, enhancing the overall user experience. Moreover, with future plans to host the application on Amazon Web Services (AWS), I ensured scalability and reliability in anticipation of increased user traffic and data processing demands. This project not only showcased my skills in full-stack development but also demonstrated my commitment to delivering practical, scalable solutions in the
