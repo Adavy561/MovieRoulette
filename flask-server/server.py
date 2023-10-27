@@ -1,7 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
+
+from dotenv import load_dotenv
+import os
 import datetime
+
+load_dotenv(os.path.join(os.path.dirname(__file__), 'env', '.env'), verbose=True)
+
+api_key = os.getenv("API_KEY")
 
 import requests
 import json
@@ -42,7 +49,7 @@ def movie_fetch(movie_list):
     querystring = {"list":movie_list}
 
     headers = {
-        "X-RapidAPI-Key": "aa4fe226c4msh65c6633f9efd71fp10db06jsn9c914d0765c5",
+        "X-RapidAPI-Key": api_key,
         "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
     }
 
