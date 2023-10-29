@@ -148,7 +148,7 @@ def update_movie_watched(imdbkey):
     db.session.commit()
     return jsonify({"message": "Movie updated to 'watched' status"})
 
-@app.route('/ToWatch/<string:imdbkey>/update_to_unwatched', methods=['GET', 'POST'])
+@app.route('/ToWatch/<string:imdbkey>/Update/Unwatched', methods=['GET', 'POST'])
 @cross_origin()
 def update_movie_unwatched(imdbkey):
     unwatched_movie = MovieCrud.query.filter_by(imdbkey=imdbkey).first()

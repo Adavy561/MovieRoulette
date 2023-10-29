@@ -35,7 +35,7 @@ const EndSlide = ({resetSlides}) => {
 									<CardBody className='card-content'>
 										<Stack spacing={32}>
                       <Button colorScheme={'teal'} onClick={resetSlides}>Pick new movies</Button>
-                      <Button colorScheme={'blue'} onClick={ToWatch}><Link to='/Watchlist'>View Watchlist</Link></Button>
+                      <Button colorScheme={'blue'}><Link to='/Watchlist'>View Watchlist</Link></Button>
                       <div>
                         <Text>Application Developed by: Aidan Davy</Text>
                       </div>
