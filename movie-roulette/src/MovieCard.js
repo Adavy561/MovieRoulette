@@ -1,8 +1,6 @@
 import {
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
   Center,
   Button,
   Image,
@@ -11,21 +9,29 @@ import {
   Alert,
   AlertIcon
 } from '@chakra-ui/react';
-import './MovieCard.css'
-import { React, useState, useEffect } from 'react'
+import './MovieCard.css';
+import React, { useState, useEffect } from 'react';
 
-function MovieCard({movieInfo}) {
-    const [isLoaded, setIsLoaded] = useState(false)
+function MovieCard({ movieInfo }) {
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageLoad = () => {
+    setIsLoaded(false);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
 
   useEffect(() => {
-    setIsLoaded(true)
     setTimeout(() => {
-      setIsLoaded(false)
-    }, 300)
+      setIsLoaded(false);
+    }, 300);
   }, []);
 
-  const [ successMessage, setSuccessMessage ] = useState(false)
-  const [ responseData, setResponseData ] = useState('')
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [responseData, setResponseData] = useState('');
 
   const sendData = () => {
     fetch('http://127.0.0.1:5000/ToWatch/add', {
@@ -61,51 +67,60 @@ function MovieCard({movieInfo}) {
   }
 
   useEffect(() => {
-  if (successMessage) {
-    const timeout = setTimeout(() => {
-      setSuccessMessage(false);
-    }, 3000); 
-    return () => clearTimeout(timeout);
-  }
-}, [successMessage]);
+    if (successMessage) {
+      const timeout = setTimeout(() => {
+        setSuccessMessage(false);
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [successMessage]);
 
-	return (
+  return (
     <>
       <Skeleton isLoaded={!isLoaded}>
-      <div className='background'>
-        <Center>
-          <Card className='card' shadow={'dark-lg'}>
-            <h1 className='card title'>{movieInfo['originalTitleText']['text']}</h1>
-            <CardBody className='card-content'>
+        <div className='background'>
+          <Center>
+            <Card className='card' shadow={'dark-lg'} w="600px">
+              <h1 className='card title'>{movieInfo['originalTitleText']['text']}</h1>
+              <CardBody className='card-content'>
+                <Center>
+                  {imageError ? (
+                    <div>No Image</div>
+                  ) : (
+                    <Image
+                      className='image'
+                      src={movieInfo['primaryImage']['url']}
+                      onLoad={handleImageLoad}
+                      onError={handleImageError}
+                    />
+                  )}
+                </Center>
+              </CardBody>
               <Center>
-                <Image className='image' src={movieInfo['primaryImage']['url']}></Image>
-              </Center>
-            </CardBody>
-            <Center>
-              {successMessage ? (
-                <HStack className='fade-in-alert'>
-                  <Alert status='success'>
-                    <AlertIcon/>
+                {successMessage ? (
+                  <HStack className='fade-in-alert'>
+                    <Alert status='success'>
+                      <AlertIcon/>
                       Server response: {responseData}
-                  </Alert>
-                </HStack>
-              ) : (
-                <HStack spacing={12}>
-                  <Button Button className='button' colorScheme='teal' size='sm'>
-                    Read More
-                  </Button>
-                  <Button className='button' colorScheme={"blue"} size='sm' onClick={sendData}>
-                    Add to To-Watch
-                  </Button>
-                </HStack>
-              )}
-              </Center>  
+                    </Alert>
+                  </HStack>
+                ) : (
+                  <HStack spacing={12}>
+                    {/* <Button className='button' colorScheme='teal' size='sm'>
+                      Read More
+                    </Button> */}
+                    <Button className='button' colorScheme='blue' size='sm' onClick={sendData}>
+                      Add to To-Watch
+                    </Button>
+                  </HStack>
+                )}
+              </Center>
             </Card>
           </Center>
         </div>
       </Skeleton>
     </>
-  )
+  );
 }
 
-export default MovieCard
+export default MovieCard;

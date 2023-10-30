@@ -12,6 +12,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Box,
+  Image
 } from '@chakra-ui/react';
 import './styles.css'
 import SimpleSlider from './slider';
@@ -39,7 +41,7 @@ const DisplayMovies = () => {
 
 
 	return (
-    <div className='body'>
+    <Box bg="teal.500" h="100vh" className='body'>
 			{movieInfo === null ? (
       <Center h='lg'>
 				<VStack height='max'>
@@ -86,7 +88,7 @@ const DisplayMovies = () => {
       (<SimpleSlider movieInfo={movieInfo} resetMovieInfo={resetMovieInfo}></SimpleSlider>)
       }
       
-    </div>
+    </Box>
   )
 }
 
