@@ -168,8 +168,19 @@ def delete_movie(imdbkey):
             db.session.commit()
             # return redirect(url_for("user_list"))
             return jsonify({"message": "Movie deleted successfully"})
+        
+@app.route("/ToWatch/Reset", methods=["GET", "POST"])
+@cross_origin()
+def reset_movies(): 
+    movieKeys = MovieCrud.query.all()
 
+    if movieKeys is not None:
+        if request.method == "POST":
+            for movie in movieKeys:
+                db.session.delete(movie)
+            db.session.commit()
 
+    return jsonify({"message": "Movies reset"})
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Text, Image, VStack, Button, useToast } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { Box, Text, Image, VStack, Button, useToast, HStack, Center, Flex } from '@chakra-ui/react';
 
 const ReadMoreCard = (props) => {
   const {
@@ -49,7 +49,7 @@ const ReadMoreCard = (props) => {
         .then((response) => response.json())
         // .then((data) => console.log(data))
         .catch((error) => console.log(error));
-    }; 
+    };
 
     const message = isWatched ? 'Marked as Unwatched' : 'Marked as Watched';
 
@@ -59,6 +59,18 @@ const ReadMoreCard = (props) => {
       position: 'top',
       duration: 3000,
     });
+  };
+
+  const deleteMovie = () => {
+    fetch(`http://127.0.0.1:5000/ToWatch/${imdbkey}/Delete`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+    .then((response) => response.json())
+      // .then((data) => console.log(data))
+    .catch((error) => console.log(error));
   };
 
   return (
@@ -98,14 +110,23 @@ const ReadMoreCard = (props) => {
             {showMore ? 'Read Less' : 'Read More'}
           </Button>
         )}
+          <Flex justifyContent="space-between" alignItems="center">
+            <Button
+            onClick={toggleWatched}
+            size="sm"
+            colorScheme={isWatched ? 'yellow' : 'green'}
+            >
+            {isWatched ? 'Mark as Unwatched' : 'Mark as Watched'}
+            </Button>
 
-        <Button
-          onClick={toggleWatched}
-          size="sm"
-          colorScheme={isWatched ? 'yellow' : 'green'}
-        >
-          {isWatched ? 'Mark as Unwatched' : 'Mark as Watched'}
-        </Button>
+            <Button
+            onClick={deleteMovie}
+            size="sm"
+            colorScheme={'red'}
+            >Remove
+            </Button>
+
+          </Flex>
       </VStack>
     </Box>
   );

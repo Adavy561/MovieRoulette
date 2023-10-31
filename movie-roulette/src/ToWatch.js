@@ -6,21 +6,33 @@ import ToWatchBanner from './ToWatchBanner';
 function App() {
   const [movieInfo, setMovieInfo] = useState([]);
 
-  useEffect(() => {
-    fetch('http://127.0.0.1:5000/ToWatch/Read', {
-      method: 'GET',
+  const onResetClick = () => {
+    fetch('http://127.0.0.1:5000/ToWatch/Reset', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setMovieInfo(data))
-      .catch((error) => console.log(error));
+      }}
+    )
+    setMovieInfo([])
+  }
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/ToWatch/Read', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => setMovieInfo(data))
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
   }, []);
+
 
   return (
     <Box width="100vw" height="100vh" display="flex" flexDirection="column" alignItems="center">
-      <ToWatchBanner />
+      <ToWatchBanner onResetClick={onResetClick}/>
       <Grid
         templateColumns="repeat(3, 1fr)"
         gap={4}
@@ -52,6 +64,7 @@ function App() {
               boxShadow="md"
               backgroundColor="white"
               w="100%"
+              
             />
           </GridItem>
         ))}
