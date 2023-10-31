@@ -1,3 +1,10 @@
-# MovieRoulette
+# MovieRoulette 
 
-I successfully bridged the gap between a React front-end and a Flask back-end, creating a seamless and fully functional REST-based full-stack application. This integration allowed for the efficient exchange of data and functionality between the front-end and back-end components, enhancing the overall user experience. Moreover, with future plans to host the application on Amazon Web Services (AWS), I ensured scalability and reliability in anticipation of increased user traffic and data processing demands. This project not only showcased my skills in full-stack development but also demonstrated my commitment to delivering practical, scalable solutions in the
+First dive into implementation of a Full Stack App.
+
+Movie roulette pulls random movies off imdb.com then presents to user. On the React frontend, User uses buttons to make internal api calls allowing the Flask based backend. The frontend contains a series of ways to manipulate the backend through internal calling and is reflected by the state which the user sees.
+
+This project not only showcased my skills in full-stack development but also demonstrated my commitment to delivering practical, scalable fullstack solutions.
+
+Landing Page
+![image](https://github.com/Adavy561/MovieRoulette/assets/93549360/542b58c5-d0af-4ee7-b2f8-3a46c69eacf3)
