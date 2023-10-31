@@ -5,48 +5,69 @@ import ToWatchBanner from './ToWatchBanner';
 
 function App() {
   const [movieInfo, setMovieInfo] = useState([]);
+  const [counter, setCounter] = useState(0);
 
   const onResetClick = () => {
     fetch('http://127.0.0.1:5000/ToWatch/Reset', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-      }}
-    )
-    setMovieInfo([])
+      },
+    }).then(() => {
+      setMovieInfo([]);
+    });
+  };
+
+  const getWatchedPercent = (movieInfo) => {
+    if (movieInfo.length != 0) {
+      const watchedMovies = movieInfo.filter((movie) => movie.watched);
+      const watchedPercent = (watchedMovies.length / movieInfo.length) * 100;
+      return watchedPercent;
+    } else {
+      return 0
+    }
+    
+  };
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/ToWatch/Read', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setMovieInfo(data))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const watchedPercent = getWatchedPercent(movieInfo);
+
+  const [reloadState, setReloadState] = useState(false);
+  
+  const handleRefresh = () => {
+    setReloadState((prevValue) => !prevValue);
   }
 
   useEffect(() => {
     fetch('http://127.0.0.1:5000/ToWatch/Read', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => setMovieInfo(data))
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
-  }, []);
-
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setMovieInfo(data))
+      .catch((error) => console.log(error));
+    setReloadState(false)
+  },[reloadState])
 
   return (
     <Box width="100vw" height="100vh" display="flex" flexDirection="column" alignItems="center">
-      <ToWatchBanner onResetClick={onResetClick}/>
-      <Grid
-        templateColumns="repeat(3, 1fr)"
-        gap={4}
-        p={4}
-        justifyContent="center"
-      >
+      <ToWatchBanner onResetClick={onResetClick} progress={watchedPercent} />
+      <Grid templateColumns="repeat(3, 1fr)" gap={4} p={4} justifyContent="center">
         {movieInfo.map((movie, index) => (
-          <GridItem
-            key={index}
-            textAlign="center"
-            w="300px"
-            m="0"
-            p="0"
-          >
+          <GridItem key={index} textAlign="center" w="300px" m="0" p="0">
             <ReadMoreCard
               caption={movie.caption}
               date={movie.date}
@@ -59,12 +80,12 @@ function App() {
               titleType={movie.titleType}
               vote_count={movie.vote_count}
               watched={movie.watched}
+              handleRefresh={handleRefresh}
               borderWidth="1px"
               borderRadius="md"
               boxShadow="md"
               backgroundColor="white"
               w="100%"
-              
             />
           </GridItem>
         ))}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Text, Image, VStack, Button, useToast, HStack, Center, Flex } from '@chakra-ui/react';
+import { Box, Text, Image, VStack, Button, useToast, Flex } from '@chakra-ui/react';
 
 const ReadMoreCard = (props) => {
   const {
@@ -14,6 +14,7 @@ const ReadMoreCard = (props) => {
     titleType,
     vote_count,
     watched,
+    handleRefresh
   } = props;
 
   const [showMore, setShowMore] = useState(false);
@@ -28,7 +29,7 @@ const ReadMoreCard = (props) => {
 
   const toggleWatched = () => {
     setIsWatched(!isWatched);
-
+  
     if (!isWatched) {
       fetch(`http://127.0.0.1:5000/ToWatch/${imdbkey}/Update/Watched`, {
         method: 'POST',
@@ -37,7 +38,6 @@ const ReadMoreCard = (props) => {
         },
       })
         .then((response) => response.json())
-        // .then((data) => console.log(data))
         .catch((error) => console.log(error));
     } else {
       fetch(`http://127.0.0.1:5000/ToWatch/${imdbkey}/Update/Unwatched`, {
@@ -47,18 +47,18 @@ const ReadMoreCard = (props) => {
         },
       })
         .then((response) => response.json())
-        // .then((data) => console.log(data))
         .catch((error) => console.log(error));
     };
-
+  
     const message = isWatched ? 'Marked as Unwatched' : 'Marked as Watched';
-
+  
     toast({
       title: message,
       status: isWatched ? 'warning' : 'success',
-      position: 'top',
+      position: 'bottom',
       duration: 3000,
     });
+    handleRefresh();
   };
 
   const deleteMovie = () => {
@@ -71,6 +71,7 @@ const ReadMoreCard = (props) => {
     .then((response) => response.json())
       // .then((data) => console.log(data))
     .catch((error) => console.log(error));
+    handleRefresh();
   };
 
   return (
