@@ -17,3 +17,5 @@ This project not only showcased my skills in full-stack development but also dem
 ## Movie Watchlist w/ % Movies seen bar
 
 ![image](https://github.com/Adavy561/MovieRoulette/assets/93549360/61635bcc-459a-4252-a364-f1f94b05dc71)
+
+Developed by Aidan Davy
