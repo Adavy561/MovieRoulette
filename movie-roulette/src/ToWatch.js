@@ -19,7 +19,7 @@ function App() {
   };
 
   const getWatchedPercent = (movieInfo) => {
-    if (movieInfo.length != 0) {
+    if (movieInfo.length !== 0) {
       const watchedMovies = movieInfo.filter((movie) => movie.watched);
       const watchedPercent = (watchedMovies.length / movieInfo.length) * 100;
       return watchedPercent;
