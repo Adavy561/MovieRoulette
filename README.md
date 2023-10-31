@@ -10,7 +10,7 @@ This project not only showcased my skills in full-stack development but also dem
 
 ![image](https://github.com/Adavy561/MovieRoulette/assets/93549360/542b58c5-d0af-4ee7-b2f8-3a46c69eacf3)
 
-## Randomly Selected Movie Cards
+## Drag Through Carousel of Randomly Selected Movie Cards
 
 ![image](https://github.com/Adavy561/MovieRoulette/assets/93549360/7e32a34f-86e8-4a85-9317-73988b7c11eb)
 
