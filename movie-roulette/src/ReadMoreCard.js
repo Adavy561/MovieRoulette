@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Text, Image, VStack, Button, useToast, Flex } from '@chakra-ui/react';
 
 const ReadMoreCard = (props) => {
@@ -86,7 +86,7 @@ const ReadMoreCard = (props) => {
     >
       <Image src={image_link} alt={title} h="200px" w="100%" objectFit="cover" />
 
-      <VStack spacing={2} align="start" mt={4}>
+      <VStack spacing={2} align="start" mt={4} bottom={4}>
         <Text fontWeight="semibold" fontSize="lg" color="teal.500">
           {title}
         </Text>
@@ -111,24 +111,28 @@ const ReadMoreCard = (props) => {
             {showMore ? 'Read Less' : 'Read More'}
           </Button>
         )}
-          <Flex justifyContent="space-between" alignItems="center">
-            <Button
-            onClick={toggleWatched}
-            size="sm"
-            colorScheme={isWatched ? 'yellow' : 'green'}
-            >
-            {isWatched ? 'Mark as Unwatched' : 'Mark as Watched'}
-            </Button>
-
-            <Button
-            onClick={deleteMovie}
-            size="sm"
-            colorScheme={'red'}
-            >Remove
-            </Button>
-
-          </Flex>
+          
       </VStack>
+      <Flex style={{ justifyContent: 'space-between' }}>
+            <Box>
+              <Button
+                onClick={toggleWatched}
+                size="sm"
+                colorScheme={isWatched ? 'yellow' : 'green'}
+              >
+                {isWatched ? 'Mark as Unwatched' : 'Mark as Watched'}
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                onClick={deleteMovie}
+                size="sm"
+                colorScheme="red"
+              >
+                Remove
+              </Button>
+            </Box>
+          </Flex>
     </Box>
   );
 };
